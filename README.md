@@ -51,3 +51,13 @@ Windows 对应命令为 `py -3.13 -m pytest`。
 ## 交付说明
 
 本项目不依赖外部图片、字体或音频素材，所有游戏图形均由 Pygame 绘制。作业博客草稿见 `docs/blog.md`，其中标注为“请填写”的个人信息、实际耗时和人工试玩结果需由提交者如实补充。
+
+## 界面预览
+
+| 开始界面 | 游戏界面 |
+| --- | --- |
+| ![开始界面](assets/screenshots/01_start.png) | ![游戏界面](assets/screenshots/02_game.png) |
+
+| 碰撞反馈 | 通关界面 |
+| --- | --- |
+| ![碰撞反馈](assets/screenshots/03_blocked.png) | ![通关界面](assets/screenshots/04_level_clear.png) |
