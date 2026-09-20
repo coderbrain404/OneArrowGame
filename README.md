@@ -18,11 +18,21 @@ python -m pip install -r requirements.txt
 python main.py
 ```
 
+Windows 上如果 `python` 指向了其他 Conda 环境，可明确使用已安装
+Pygame 的 Python 3.13：
+
+```powershell
+py -3.13 -m pip install -r requirements.txt
+py -3.13 main.py
+```
+
 ## 运行测试
 
 ```bash
 python -m pytest
 ```
+
+Windows 对应命令为 `py -3.13 -m pytest`。
 
 ## 项目结构
 
@@ -41,4 +51,3 @@ python -m pytest
 ## 交付说明
 
 本项目不依赖外部图片、字体或音频素材，所有游戏图形均由 Pygame 绘制。作业博客草稿见 `docs/blog.md`，其中标注为“请填写”的个人信息、实际耗时和人工试玩结果需由提交者如实补充。
-
