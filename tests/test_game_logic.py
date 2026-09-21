@@ -9,6 +9,7 @@ from game_logic import (
     GameState,
     GameStatus,
     board_snapshot,
+    find_hint,
     is_path_clear,
     solve_board,
 )
@@ -137,3 +138,24 @@ def test_empty_cell_does_not_change_game_state() -> None:
     assert board_snapshot(game.board) == before
     assert game.mistakes_left == 3
 
+
+def test_hint_is_legal_and_does_not_modify_board() -> None:
+    game = GameState((LEVELS[3],))
+    before = board_snapshot(game.board)
+
+    hint = find_hint(game.board)
+
+    assert hint is not None
+    assert is_path_clear(game.board, *hint)
+    assert board_snapshot(game.board) == before
+
+
+def test_load_level_accepts_valid_index_and_rejects_invalid_index() -> None:
+    game = GameState()
+
+    game.load_level(5)
+    assert game.level_index == 5
+    assert game.mistakes_left == 2
+
+    with pytest.raises(IndexError):
+        game.load_level(6)

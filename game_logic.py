@@ -125,6 +125,13 @@ def solve_board(board: Board) -> list[tuple[int, int]] | None:
     return order
 
 
+def find_hint(board: Board) -> tuple[int, int] | None:
+    """返回当前棋盘解法的下一步，不修改传入棋盘。"""
+
+    solution = solve_board(board)
+    return solution[0] if solution else None
+
+
 def all_levels_solvable(levels: Iterable[Level] = LEVELS) -> bool:
     return all(solve_board(level.create_board()) is not None for level in levels)
 
@@ -155,6 +162,13 @@ class GameState:
         self.board = self.levels[index].create_board()
         self.mistakes_left = self.levels[index].max_mistakes
         self.status = GameStatus.PLAYING
+
+    def load_level(self, index: int) -> None:
+        """加载指定关卡，供选关界面使用。"""
+
+        if not 0 <= index < len(self.levels):
+            raise IndexError("关卡下标超出范围")
+        self._load_level(index)
 
     def restart_current(self) -> None:
         self._load_level(self.level_index)
@@ -211,4 +225,3 @@ class GameState:
             mistakes_left=self.mistakes_left,
             remaining_arrows=self.remaining,
         )
-

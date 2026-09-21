@@ -16,6 +16,7 @@ if str(PROJECT_ROOT) not in sys.path:
 import pygame
 
 from game_logic import GameStatus, solve_board
+from save_manager import Progress
 from ui import ArrowAnimation, ArrowGame, WINDOW_HEIGHT, WINDOW_WIDTH
 
 
@@ -32,19 +33,27 @@ def main() -> None:
     pygame.init()
     surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
     app = ArrowGame(surface=surface)
+    app.progress = Progress(unlocked_level=1, completed_levels={0})
 
     app.scene = "start"
     save(app, "01_start.png")
 
-    app.start_new_game()
-    save(app, "02_game.png")
+    app.scene = "level_select"
+    save(app, "02_level_select.png")
 
+    app.start_new_game()
+    save(app, "03_game.png")
+
+    app.use_hint(now=9.7)
+    save(app, "04_hint.png")
+
+    app.hint_cell = None
     outcome = app.game.click(0, 0)
-    app.notice = "前方有阻挡，机会 -1"
+    app.notice = "被格挡！气力 -1"
     app.animation = ArrowAnimation(
         "blocked", 0, 0, "R", 9.75, 0.55, outcome.blocker
     )
-    save(app, "03_blocked.png")
+    save(app, "05_blocked.png")
 
     app.animation = None
     app.game.restart_current()
@@ -55,14 +64,16 @@ def main() -> None:
     assert app.game.status is GameStatus.LEVEL_CLEAR
     app.scene = "level_clear"
     app.notice = ""
-    save(app, "04_level_clear.png")
+    app.scene_started_at = 9.5
+    save(app, "06_level_clear.png")
 
     app.game.restart_current()
     for _ in range(3):
         app.game.click(0, 0)
     assert app.game.status is GameStatus.GAME_OVER
     app.scene = "game_over"
-    save(app, "05_game_over.png")
+    app.scene_started_at = 9.5
+    save(app, "07_game_over.png")
 
     app.start_new_game()
     while True:
@@ -75,7 +86,8 @@ def main() -> None:
             break
     assert app.game.status is GameStatus.ALL_CLEAR
     app.scene = "all_clear"
-    save(app, "06_all_clear.png")
+    app.scene_started_at = 9.5
+    save(app, "08_all_clear.png")
     pygame.quit()
     print(f"Generated screenshots in {OUTPUT_DIR}")
 

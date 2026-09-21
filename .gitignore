@@ -8,8 +8,8 @@ venv/
 dist/
 build/
 *.egg-info/
+*.spec
 .idea/
 .vscode/
 *.log
 save.json
-
