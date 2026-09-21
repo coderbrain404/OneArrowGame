@@ -147,6 +147,7 @@ chore: scaffold project and acceptance records
 feat: implement arrow puzzle rules and solvable levels
 feat: add pygame interface animations and screenshots
 docs: add report draft and manual verification guide
+feat: add six-level wuxia challenge
 ```
 
 ## 七、PSP 表格
